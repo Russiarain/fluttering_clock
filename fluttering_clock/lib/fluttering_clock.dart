@@ -57,23 +57,27 @@ class _FlutteringClockState extends State<FlutteringClock> {
       _dateTime = DateTime.now();
       // Update once per minute. If you want to update every second, use the
       // following code.
-      _timer = Timer(
-        Duration(minutes: 1) -
-            Duration(seconds: _dateTime.second) -
-            Duration(milliseconds: _dateTime.millisecond),
-        _updateTime,
-      );
-      // Update once per second, but make sure to do it at the beginning of each
-      // new second, so that the clock is accurate.
       // _timer = Timer(
-      //   Duration(seconds: 1) - Duration(milliseconds: _dateTime.millisecond),
+      //   Duration(minutes: 1) -
+      //       Duration(seconds: _dateTime.second) -
+      //       Duration(milliseconds: _dateTime.millisecond),
       //   _updateTime,
       // );
+      // Update once per second, but make sure to do it at the beginning of each
+      // new second, so that the clock is accurate.
+      _timer = Timer(
+        Duration(seconds: 1) - Duration(milliseconds: _dateTime.millisecond),
+        _updateTime,
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    String _timeString = '${_dateTime.hour}:${_dateTime.minute}';
+    double _screenHeight = MediaQuery.of(context).size.height;
+    int _currentSecond = _dateTime.second;
+
     return Stack(
       children: <Widget>[
         Positioned.fill(
@@ -100,7 +104,7 @@ class _FlutteringClockState extends State<FlutteringClock> {
         Positioned.fill(
           child: Center(
             //Using AnimatedWidget to animated text content changes doesn't work
-            child: Text('21:37',style: Theme.of(context).textTheme.display3.copyWith(color: Colors.white.withAlpha(128),fontWeight: FontWeight.w800),textScaleFactor: 3.5,),
+            child: Text(_currentSecond.toString(),style: Theme.of(context).textTheme.display3.copyWith(color: Colors.white.withAlpha(128),fontWeight: FontWeight.w800),textScaleFactor: 3.5,),
           ),
         )
       ],
