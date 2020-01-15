@@ -1,6 +1,10 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_clock_helper/model.dart';
-import 'dart:async';
+
+import 'fluttering_helper.dart';
 
 class FlutteringClock extends StatefulWidget {
   final ClockModel model;
@@ -70,6 +74,36 @@ class _FlutteringClockState extends State<FlutteringClock> {
 
   @override
   Widget build(BuildContext context) {
-    return null;
+    return Stack(
+      children: <Widget>[
+        Positioned.fill(
+          child: AnimatedBackgroud(),
+        ),
+        Positioned.fill(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: SineWave(height: 280,speed: 1.0,),
+          ),
+        ),
+        Positioned.fill(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: SineWave(height: 260,speed: 1.02,offset: 0.33*pi,),
+          ),
+        ),
+        Positioned.fill(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: SineWave(height: 240,speed: 1.04,offset: 0.66*pi,),
+          ),
+        ),
+        Positioned.fill(
+          child: Center(
+            //Using AnimatedWidget to animated text content changes doesn't work
+            child: Text('21:37',style: Theme.of(context).textTheme.display3.copyWith(color: Colors.white.withAlpha(128),fontWeight: FontWeight.w800),textScaleFactor: 3.5,),
+          ),
+        )
+      ],
+    );
   }
 }
