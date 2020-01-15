@@ -8,12 +8,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:fluttering_clock/main.dart';
+import 'package:fluttering_clock/fluttering_clock.dart';
+import 'package:flutter_clock_helper/model.dart';
+import 'package:flutter_clock_helper/customizer.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(ClockCustomizer((ClockModel model) => FlutteringClock(model)));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
