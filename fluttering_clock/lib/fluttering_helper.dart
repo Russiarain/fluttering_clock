@@ -43,7 +43,9 @@ class SineWave extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Container(
+        return AnimatedContainer(
+          duration: Duration(milliseconds: 800),
+          curve: Curves.linear,
           height: height,
           width: constraints.maxWidth,
           child: ControlledAnimation(
@@ -77,17 +79,17 @@ class SineCurvePainter extends CustomPainter {
     final areaHeight = size.height;
     final areaWidth = size.width;
 
-    final double offset = 0.8;
+    final double offset = 0.05;
     final double amplitude = 0.2;
 
     final y1 = sin(sineX);
     final y2 = sin(sineX+pi/3);//sineX+60
     final y3 = sin(sineX + 2*pi/3);
 
-    final yStartPoint = size.height * (offset + amplitude * y1);
-    final yControllPoint1 = size.height * (offset + amplitude * y2);
-    final yControllPoint2 = size.height * (offset + amplitude * y3);
-    final yEndPoint = size.height * (offset - amplitude * y1);
+    final yStartPoint = areaHeight * (offset + amplitude * y1);
+    final yControllPoint1 = areaHeight * (offset + amplitude * y2);
+    final yControllPoint2 = areaHeight * (offset + amplitude * y3);
+    final yEndPoint = areaHeight * (offset - amplitude * y1);
 
     //test points start
     final leftPoint = size.height * 0.8;
