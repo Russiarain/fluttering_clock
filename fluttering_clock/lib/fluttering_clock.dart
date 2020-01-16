@@ -77,9 +77,13 @@ class _FlutteringClockState extends State<FlutteringClock> {
     String _timeString = '${_dateTime.hour} ${_dateTime.minute}';
     final _screenSize = MediaQuery.of(context).size;
     double _waveHeight =
-        (_screenSize.height * _dateTime.second / 59).floorToDouble();//seems wrong
+        (_screenSize.height * _dateTime.second / 59).floorToDouble();
+    bool _inLandscapeMode =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     double _fontSize =
-        (min(_screenSize.height, _screenSize.width) / 3.6).floorToDouble();
+        ((_inLandscapeMode ? _screenSize.height : 0.6 * _screenSize.width) /
+                3.5)
+            .floorToDouble();
 
     return Stack(
       children: <Widget>[
@@ -118,13 +122,16 @@ class _FlutteringClockState extends State<FlutteringClock> {
         Positioned.fill(
           child: Center(
             //Using AnimatedWidget to animated text content changes doesn't work
-            child: Text(_timeString,
-                style: TextStyle(
-                    fontFamily: 'Simpleton',
-                    //fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.normal,
-                    fontSize: _fontSize,
-                    color: Colors.white.withAlpha(196)),textScaleFactor: 1.5,),
+            child: Text(
+              _timeString,
+              style: TextStyle(
+                  fontFamily: 'Simpleton',
+                  //fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.normal,
+                  fontSize: _fontSize,
+                  color: Colors.white.withAlpha(196)),
+              textScaleFactor: 1.5,
+            ),
           ),
         )
       ],
