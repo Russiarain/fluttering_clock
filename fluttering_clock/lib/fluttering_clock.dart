@@ -74,9 +74,12 @@ class _FlutteringClockState extends State<FlutteringClock> {
 
   @override
   Widget build(BuildContext context) {
-    String _timeString = '${_dateTime.hour}:${_dateTime.minute}';
-    double _screenHeight = MediaQuery.of(context).size.height;
-    int _currentSecond = _dateTime.second;
+    String _timeString = '${_dateTime.hour} ${_dateTime.minute}';
+    final _screenSize = MediaQuery.of(context).size;
+    double _waveHeight =
+        (_screenSize.height * _dateTime.second / 59).floorToDouble();//seems wrong
+    double _fontSize =
+        (min(_screenSize.height, _screenSize.width) / 3.6).floorToDouble();
 
     return Stack(
       children: <Widget>[
@@ -86,25 +89,42 @@ class _FlutteringClockState extends State<FlutteringClock> {
         Positioned.fill(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: SineWave(height: 280,speed: 1.0,),
+            child: SineWave(
+              height: _waveHeight,
+              speed: 1.0,
+            ),
           ),
         ),
         Positioned.fill(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: SineWave(height: 260,speed: 1.02,offset: 0.33*pi,),
+            child: SineWave(
+              height: _waveHeight,
+              speed: 1.02,
+              offset: 0.33 * pi,
+            ),
           ),
         ),
         Positioned.fill(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: SineWave(height: 240,speed: 1.04,offset: 0.66*pi,),
+            child: SineWave(
+              height: _waveHeight,
+              speed: 1.04,
+              offset: 0.66 * pi,
+            ),
           ),
         ),
         Positioned.fill(
           child: Center(
             //Using AnimatedWidget to animated text content changes doesn't work
-            child: Text(_currentSecond.toString(),style: Theme.of(context).textTheme.display3.copyWith(color: Colors.white.withAlpha(128),fontWeight: FontWeight.w800),textScaleFactor: 3.5,),
+            child: Text(_timeString,
+                style: TextStyle(
+                    fontFamily: 'Simpleton',
+                    //fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.normal,
+                    fontSize: _fontSize,
+                    color: Colors.white.withAlpha(196)),textScaleFactor: 1.5,),
           ),
         )
       ],
