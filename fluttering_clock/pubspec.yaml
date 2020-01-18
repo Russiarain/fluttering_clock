@@ -58,11 +58,16 @@ flutter:
 
   # Custom font:
   fonts:
-    - family: Simpleton
+    - family: Raj
       fonts:
-        - asset: assets/fonts/Simpleton.ttf
-  # Created by Brian Kent , Simpleton is free for personal or commercial use.
-  
+        - asset: assets/fonts/Rajdhani/Rajdhani-SemiBold.ttf
+        - asset: assets/fonts/Rajdhani/Rajdhani-Bold.ttf
+          weight: 700
+    - family: Noto
+      fonts:
+        - asset: assets/fonts/Noto_Sans/NotoSans-Regular.ttf
+        - asset: assets/fonts/Noto_Sans/NotoSans-Bold.ttf
+          weight: 700
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
