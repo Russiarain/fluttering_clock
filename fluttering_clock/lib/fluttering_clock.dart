@@ -113,44 +113,19 @@ class _FlutteringClockState extends State<FlutteringClock> {
             theme: theme,
           ),
         ),
+        waveLayer(_waveHeight, 0, theme.waveColor),
+        waveLayer(_waveHeight, 0.33 * pi, theme.waveColor),
+        waveLayer(_waveHeight, 0.66 * pi, theme.waveColor),
         Positioned.fill(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: SineWave(
-              height: _waveHeight,
-              speed: 1.0,
-            ),
-          ),
-        ),
-        Positioned.fill(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: SineWave(
-              height: _waveHeight,
-              speed: 1.02,
-              offset: 0.33 * pi,
-            ),
-          ),
-        ),
-        Positioned.fill(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: SineWave(
-              height: _waveHeight,
-              speed: 1.04,
-              offset: 0.66 * pi,
-            ),
-          ),
-        ),
-        Positioned.fill(
-          child: Center(
-            //Using AnimatedWidget to animated text content changes doesn't work
+          top: 48,
+          child: Container(
+            alignment: Alignment.topCenter,
             child: Text(
               _timeString,
               style: TextStyle(
-                  fontFamily: 'Simpleton',
+                  //fontFamily: 'Simpleton',
                   //fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.w800,
                   fontSize: _fontSize,
                   color: theme.fontColor),
               textScaleFactor: 1.5,

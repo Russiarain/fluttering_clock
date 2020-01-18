@@ -35,12 +35,26 @@ class AnimatedBackgroud extends StatelessWidget {
   }
 }
 
+Widget waveLayer(double height,double offset,Color waveColor){
+  return Positioned.fill(
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: SineWave(
+              height: height,
+              offset: offset,
+              waveColor: waveColor,
+            ),
+          ),
+        );
+}
+
 class SineWave extends StatelessWidget {
   final double height;
   final double speed;
   final double offset;
+  final Color waveColor;
 
-  SineWave({this.height, this.speed, this.offset = 0.0});
+  SineWave({this.height, this.speed = 1.0, this.waveColor, this.offset = 0.0});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +71,7 @@ class SineWave extends StatelessWidget {
             tween: Tween(begin: 0.0, end: 2 * pi),
             builder: (contest, value) {
               return CustomPaint(
-                foregroundPainter: SineCurvePainter(value + offset),
+                foregroundPainter: SineCurvePainter(value + offset,areaColor: waveColor),
               );
             },
           ),
@@ -69,12 +83,13 @@ class SineWave extends StatelessWidget {
 
 class SineCurvePainter extends CustomPainter {
   final double sineX;
+  final Color areaColor;
 
-  SineCurvePainter(this.sineX);
+  SineCurvePainter(this.sineX,{this.areaColor});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final cvPaint = Paint()..color = Colors.white.withAlpha(48);
+    final cvPaint = Paint()..color = areaColor;
     final path = Path();
 
     final areaHeight = size.height;
