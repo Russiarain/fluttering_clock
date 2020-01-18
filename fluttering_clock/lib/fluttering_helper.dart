@@ -2,20 +2,22 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:simple_animations/simple_animations.dart';
+import 'package:fluttering_clock/themes.dart';
 
 class AnimatedBackgroud extends StatelessWidget {
+  final FlutteringTheme theme;
+
+  AnimatedBackgroud({this.theme});
+
   @override
   Widget build(BuildContext context) {
     final tween = MultiTrackTween([
-      Track('color1').add(
-          Duration(seconds: 3),
-          ColorTween(
-              begin: Colors.purple.withAlpha(48),
-              end: Colors.deepOrange.shade600)),
-      Track('color2').add(Duration(seconds: 3),
-          ColorTween(begin: Color(0xffa83279), end: Colors.blue.shade600))
+      Track('top').add(Duration(seconds: 3), theme.backgroudTopColorTween),
+      Track('bottom').add(Duration(seconds: 3), theme.backgroudBottomColorTween)
     ]);
+
     return ControlledAnimation(
+      key: ObjectKey(theme),
       playback: Playback.MIRROR,
       tween: tween,
       duration: tween.duration,
@@ -26,7 +28,7 @@ class AnimatedBackgroud extends StatelessWidget {
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [animation['color1'], animation['color2']])),
+                  colors: [animation['top'], animation['bottom']])),
         );
       },
     );
