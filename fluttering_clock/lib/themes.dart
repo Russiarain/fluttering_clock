@@ -31,7 +31,7 @@ FlutteringTheme _buildDarkTheme() {
           ColorTween(begin: Color(0xff37474f), end: Color(0xff212121)),
       backgroudBottomColorTween:
           ColorTween(begin: Color(0xff212121), end: Color(0xff37474f)),
-      waveColor: Colors.blueGrey[600],
+      waveColor: Colors.blueGrey[600].withAlpha(48),
       fontColor: Colors.white54);
 }
 
@@ -39,42 +39,42 @@ FlutteringTheme _buildGloomyTheme() {
   //used in light mode when weather condition is 'cloudy' or 'foggy'
   return FlutteringTheme(
       backgroudTopColorTween:
-          ColorTween(begin: Color(0xff76dfe6), end: Color(0xffe67d76)),
+          ColorTween(begin: Color(0x99ff6c64), end: Color(0xfff7ff64)),
       backgroudBottomColorTween:
-          ColorTween(begin: Color(0xff76e6b3), end: Color(0xff76e0e6)),
-      waveColor: Color(0xffe676e0),
-      fontColor: Colors.black45);
+          ColorTween(begin: Color(0xff3949ab), end: Color(0xff9c39ab)),
+      waveColor: Color(0x30f6f3c6),
+      fontColor: Colors.white54);
 }
 
 FlutteringTheme _buildRainyTheme() {
   //used in light mode when weather condition is 'rainy' or 'thunderstorm'
   return FlutteringTheme(
       backgroudTopColorTween:
-          ColorTween(begin: Color(0xff76dfe6), end: Color(0xffe67d76)),
+          ColorTween(begin: Color(0xff18ffff), end: Color(0xff006ecb)),
       backgroudBottomColorTween:
-          ColorTween(begin: Colors.red[700], end: Color(0xff76e0e6)),
-      waveColor: Color(0xffe676e0),
-      fontColor: Colors.white54);
+          ColorTween(begin: Color(0xffaa00ff), end: Color(0xff18ffff)),
+      waveColor: Color(0x806cccff),
+      fontColor: Colors.white60);
 }
 
 FlutteringTheme _buildSoothingTheme() {
   //used in light mode when weather condition is 'sunny'
   return FlutteringTheme(
       backgroudTopColorTween:
-          ColorTween(begin: Color(0xff76dfe6), end: Color(0xffe67d76)),
+          ColorTween(begin: Color(0xff69f0ae), end: Color(0xff18ffff)),
       backgroudBottomColorTween:
-          ColorTween(begin: Color(0xff76e6b3), end: Color(0xff76e0e6)),
-      waveColor: Color(0xffe676e0),
-      fontColor: Colors.black45);
+          ColorTween(begin: Color(0xff18ffff), end: Color(0xff69f0ae)),
+      waveColor: Colors.white30.withAlpha(48),
+      fontColor: Colors.black38);
 }
 
 FlutteringTheme _buildWarmTheme() {
   //used in light mode when weather condition is 'snowy' or 'windy'
   return FlutteringTheme(
       backgroudTopColorTween:
-          ColorTween(begin: Color(0xff76dfe6), end: Color(0xffe67d76)),
+          ColorTween(begin: Color(0xfff44336), end: Color(0xffff5722)),
       backgroudBottomColorTween:
-          ColorTween(begin: Color(0xff76e6b3), end: Color(0xff76e0e6)),
-      waveColor: Color(0xffe676e0),
-      fontColor: Colors.black45);
+          ColorTween(begin: Colors.amber[700], end: Colors.orange[700]),
+      waveColor: Colors.white.withAlpha(48),
+      fontColor: Colors.white60);
 }
