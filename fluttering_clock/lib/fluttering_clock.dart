@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_clock_helper/model.dart';
+import 'package:fluttering_clock/themes.dart';
 
 import 'fluttering_helper.dart';
 
@@ -46,6 +47,35 @@ class _FlutteringClockState extends State<FlutteringClock> {
     super.dispose();
   }
 
+  FlutteringTheme get theme {
+    if (Theme.of(context).brightness == Brightness.dark) {
+      return kThemeOf['Dark'];
+    } else {
+      switch (widget.model.weatherCondition) {
+        case WeatherCondition.cloudy:
+          return kThemeOf['cloudy'];
+          break;
+        case WeatherCondition.foggy:
+          return kThemeOf['foggy'];
+          break;
+        case WeatherCondition.rainy:
+          return kThemeOf['rainy'];
+          break;
+        case WeatherCondition.snowy:
+          return kThemeOf['snowy'];
+          break;
+        case WeatherCondition.thunderstorm:
+          return kThemeOf['thunderstorm'];
+          break;
+        case WeatherCondition.windy:
+          return kThemeOf['windy'];
+          break;
+        default:
+          return kThemeOf['sunny'];
+      }
+    }
+  }
+
   void _updateModel() {
     setState(() {
       // Cause the clock to rebuild when the model changes.
@@ -55,16 +85,7 @@ class _FlutteringClockState extends State<FlutteringClock> {
   void _updateTime() {
     setState(() {
       _dateTime = DateTime.now();
-      // Update once per minute. If you want to update every second, use the
-      // following code.
-      // _timer = Timer(
-      //   Duration(minutes: 1) -
-      //       Duration(seconds: _dateTime.second) -
-      //       Duration(milliseconds: _dateTime.millisecond),
-      //   _updateTime,
-      // );
-      // Update once per second, but make sure to do it at the beginning of each
-      // new second, so that the clock is accurate.
+
       _timer = Timer(
         Duration(seconds: 1) - Duration(milliseconds: _dateTime.millisecond),
         _updateTime,
@@ -88,7 +109,9 @@ class _FlutteringClockState extends State<FlutteringClock> {
     return Stack(
       children: <Widget>[
         Positioned.fill(
-          child: AnimatedBackgroud(),
+          child: AnimatedBackgroud(
+            theme: theme,
+          ),
         ),
         Positioned.fill(
           child: Align(
@@ -129,7 +152,7 @@ class _FlutteringClockState extends State<FlutteringClock> {
                   //fontStyle: FontStyle.italic,
                   fontWeight: FontWeight.normal,
                   fontSize: _fontSize,
-                  color: Colors.white.withAlpha(196)),
+                  color: theme.fontColor),
               textScaleFactor: 1.5,
             ),
           ),
