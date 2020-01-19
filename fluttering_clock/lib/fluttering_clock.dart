@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:fluttering_clock/themes.dart';
 
@@ -21,6 +22,11 @@ class FlutteringClock extends StatefulWidget {
 class _FlutteringClockState extends State<FlutteringClock> {
   DateTime _dateTime = DateTime.now();
   Timer _timer;
+
+  var _is24Format = true;
+  var _temperature = '';
+  var _weatherCondition = '';
+  var _location = '';
 
   @override
   void initState() {
@@ -51,34 +57,41 @@ class _FlutteringClockState extends State<FlutteringClock> {
     if (Theme.of(context).brightness == Brightness.dark) {
       return kThemeOf['Dark'];
     } else {
-      switch (widget.model.weatherCondition) {
-        case WeatherCondition.cloudy:
-          return kThemeOf['cloudy'];
-          break;
-        case WeatherCondition.foggy:
-          return kThemeOf['foggy'];
-          break;
-        case WeatherCondition.rainy:
-          return kThemeOf['rainy'];
-          break;
-        case WeatherCondition.snowy:
-          return kThemeOf['snowy'];
-          break;
-        case WeatherCondition.thunderstorm:
-          return kThemeOf['thunderstorm'];
-          break;
-        case WeatherCondition.windy:
-          return kThemeOf['windy'];
-          break;
-        default:
-          return kThemeOf['sunny'];
-      }
+      return kThemeOf[widget.model.weatherString];
+      // switch (widget.model.weatherCondition) {
+      //   case WeatherCondition.cloudy:
+      //     return kThemeOf['cloudy'];
+      //     break;
+      //   case WeatherCondition.foggy:
+      //     return kThemeOf['foggy'];
+      //     break;
+      //   case WeatherCondition.rainy:
+      //     return kThemeOf['rainy'];
+      //     break;
+      //   case WeatherCondition.snowy:
+      //     return kThemeOf['snowy'];
+      //     break;
+      //   case WeatherCondition.thunderstorm:
+      //     return kThemeOf['thunderstorm'];
+      //     break;
+      //   case WeatherCondition.windy:
+      //     return kThemeOf['windy'];
+      //     break;
+      //   default:
+      //     return kThemeOf['sunny'];
+      // }
     }
   }
 
   void _updateModel() {
     setState(() {
       // Cause the clock to rebuild when the model changes.
+      _is24Format = widget.model.is24HourFormat;
+      _temperature = widget.model.temperatureString;
+      _weatherCondition =
+          widget.model.weatherString.substring(0, 1).toUpperCase() +
+              widget.model.weatherString.substring(1);
+      _location = widget.model.location;
     });
   }
 
@@ -95,7 +108,9 @@ class _FlutteringClockState extends State<FlutteringClock> {
 
   @override
   Widget build(BuildContext context) {
-    String _timeString = '${_dateTime.hour} ${_dateTime.minute}';
+    String _timeString =
+        DateFormat(_is24Format ? 'HH mm' : 'jm').format(_dateTime);
+    String _dateString = DateFormat('E , MMMM d').format(_dateTime);
     final _screenSize = MediaQuery.of(context).size;
     double _waveHeight =
         (_screenSize.height * _dateTime.second / 59).floorToDouble();
@@ -103,8 +118,15 @@ class _FlutteringClockState extends State<FlutteringClock> {
         MediaQuery.of(context).orientation == Orientation.landscape;
     double _fontSize =
         ((_inLandscapeMode ? _screenSize.height : 0.6 * _screenSize.width) /
-                3.5)
+                2.5)
             .floorToDouble();
+
+    TextStyle hourMinuteStyle = TextStyle(
+        fontFamily: 'Raj',
+        fontWeight: FontWeight.w800,
+        letterSpacing: 8,
+        fontSize: _fontSize,
+        color: theme.fontColor);
 
     return Stack(
       children: <Widget>[
@@ -117,18 +139,24 @@ class _FlutteringClockState extends State<FlutteringClock> {
         waveLayer(_waveHeight, 0.33 * pi, theme.waveColor),
         waveLayer(_waveHeight, 0.66 * pi, theme.waveColor),
         Positioned.fill(
-          top: 48,
+          top: 32,
           child: Container(
             alignment: Alignment.topCenter,
-            child: Text(
-              _timeString,
-              style: TextStyle(
-                  //fontFamily: 'Simpleton',
-                  //fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.w800,
-                  fontSize: _fontSize,
-                  color: theme.fontColor),
-              textScaleFactor: 1.5,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  _timeString,
+                  style: hourMinuteStyle,
+                ),
+                Text(
+                  _dateString,
+                  style: TextStyle(
+                      fontFamily: 'Noto',
+                      fontWeight: FontWeight.w700,
+                      fontSize: _fontSize / 4.2,
+                      color: theme.fontColor),
+                ),
+              ],
             ),
           ),
         )
