@@ -112,14 +112,13 @@ class _FlutteringClockState extends State<FlutteringClock> {
         DateFormat(_is24Format ? 'HH mm' : 'jm').format(_dateTime);
     String _dateString = DateFormat('E , MMMM d').format(_dateTime);
     final _screenSize = MediaQuery.of(context).size;
-    double _waveHeight =
-        (_screenSize.height * _dateTime.second / 59).floorToDouble();
     bool _inLandscapeMode =
         MediaQuery.of(context).orientation == Orientation.landscape;
-    double _fontSize =
-        ((_inLandscapeMode ? _screenSize.height : 0.6 * _screenSize.width) /
-                2.5)
-            .floorToDouble();
+    var actualHeight =
+        _inLandscapeMode ? _screenSize.height : 0.6 * _screenSize.width;
+    double _fontSize = (actualHeight / 2.5).floorToDouble();
+    double _waveHeight =
+        (actualHeight * _dateTime.second / 59).floorToDouble();
 
     TextStyle hourMinuteStyle = TextStyle(
         fontFamily: 'Raj',
