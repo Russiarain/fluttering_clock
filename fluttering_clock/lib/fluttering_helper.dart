@@ -61,8 +61,8 @@ class SineWave extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return AnimatedContainer(
-          duration: Duration(milliseconds: 800),
-          curve: Curves.linear,
+          duration: Duration(milliseconds: 1000),
+          curve: Curves.linearToEaseOut,
           height: height,
           width: constraints.maxWidth,
           child: ControlledAnimation(
