@@ -109,7 +109,7 @@ class _FlutteringClockState extends State<FlutteringClock> {
   @override
   Widget build(BuildContext context) {
     String _timeString =
-        DateFormat(_is24Format ? 'HH mm' : 'jm').format(_dateTime);
+        DateFormat(_is24Format ? 'HH:mm' : 'jm').format(_dateTime);
     String _dateString = DateFormat('E , MMMM d').format(_dateTime);
     final _screenSize = MediaQuery.of(context).size;
     bool _inLandscapeMode =
@@ -122,7 +122,7 @@ class _FlutteringClockState extends State<FlutteringClock> {
     TextStyle hourMinuteStyle = TextStyle(
         fontFamily: 'Raj',
         fontWeight: FontWeight.w800,
-        letterSpacing: 8,
+        letterSpacing: 10,
         fontSize: _fontSize,
         color: theme.fontColor);
 
@@ -149,10 +149,22 @@ class _FlutteringClockState extends State<FlutteringClock> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(
-                  _timeString,
-                  style: hourMinuteStyle,
+                RichText(
+                  text: TextSpan(style: hourMinuteStyle, children: <TextSpan>[
+                    if (_is24Format) TextSpan(text: _timeString),
+                    if (!_is24Format)
+                      TextSpan(text: _timeString.split(' ').first),
+                    if (!_is24Format)
+                      TextSpan(
+                          text: _timeString.split(' ')[1],
+                          style: hourMinuteStyle.copyWith(
+                              fontSize: _fontSize / 2.5, letterSpacing: 0))
+                  ]),
                 ),
+                // Text(
+                //   _timeString,
+                //   style: hourMinuteStyle,
+                // ),
                 Text(
                   _dateString,
                   style: TextStyle(
