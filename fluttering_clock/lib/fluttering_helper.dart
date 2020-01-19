@@ -95,7 +95,7 @@ class SineCurvePainter extends CustomPainter {
     final areaHeight = size.height;
     final areaWidth = size.width;
 
-    final double offset = 0.05;
+    final double offset = 0.16;
     final double amplitude = 0.2;
 
     final y1 = sin(sineX);
