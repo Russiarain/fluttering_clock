@@ -116,15 +116,20 @@ class _FlutteringClockState extends State<FlutteringClock> {
         MediaQuery.of(context).orientation == Orientation.landscape;
     var actualHeight =
         _inLandscapeMode ? _screenSize.height : 0.6 * _screenSize.width;
-    double _fontSize = (actualHeight / 2.5).floorToDouble();
-    double _waveHeight =
-        (actualHeight * _dateTime.second / 59).floorToDouble();
+    double _fontSize = (actualHeight / 2.7).floorToDouble();
+    double _waveHeight = (actualHeight * _dateTime.second / 59).floorToDouble();
 
     TextStyle hourMinuteStyle = TextStyle(
         fontFamily: 'Raj',
         fontWeight: FontWeight.w800,
         letterSpacing: 8,
         fontSize: _fontSize,
+        color: theme.fontColor);
+
+    TextStyle otherFontStyle = TextStyle(
+        fontFamily: 'Noto',
+        fontWeight: FontWeight.w700,
+        fontSize: _fontSize / 9.5,
         color: theme.fontColor);
 
     return Stack(
@@ -138,10 +143,11 @@ class _FlutteringClockState extends State<FlutteringClock> {
         waveLayer(_waveHeight, 0.33 * pi, theme.waveColor),
         waveLayer(_waveHeight, 0.66 * pi, theme.waveColor),
         Positioned.fill(
-          top: 32,
+          top: 0.1 * actualHeight,
           child: Container(
             alignment: Alignment.topCenter,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
                   _timeString,
@@ -158,6 +164,27 @@ class _FlutteringClockState extends State<FlutteringClock> {
               ],
             ),
           ),
+        ),
+        Positioned.fill(
+          top: 8,
+          left: 8,
+          child: RichText(
+            text: TextSpan(children: <TextSpan>[
+              TextSpan(text: _weatherCondition),
+              TextSpan(text: '    '),
+              TextSpan(text: _temperature)
+            ], style: otherFontStyle),
+          ),
+        ),
+        Positioned.fill(
+          bottom: 8,
+          right: 8,
+          child: Container(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                _location,
+                style: otherFontStyle,
+              )),
         )
       ],
     );
