@@ -1,7 +1,7 @@
 # Fluttering Clock
 
 <center>
-    <img src='fluttering.gif' width = '800'>
+    <img src='fluttering_clock/assets/images/main.png' height = '500'>
 </center>
 
 Welcome to Fluttering Clock !
@@ -21,27 +21,27 @@ You can read `date` , `day of week` , `hour` and `minute` directly from the cloc
 
 ## Features
 
-* Different themes depending on weather conditions
+* **Different themes depending on weather conditions**
   
-  Sunny
+  * Sunny
 
-  <img src='fluttering_clock/assets/images/sunny.jpg' height = '400'>
+    <img src='fluttering_clock/assets/images/sunny.jpg' height = '400'>
 
-  Cloudy
+  * Cloudy
 
-  <img src='fluttering_clock/assets/images/cloudy.png' height = '400'>
+    <img src='fluttering_clock/assets/images/cloudy.png' height = '400'>
 
-  Snowy
+  * Snowy
 
-  <img src='fluttering_clock/assets/images/snowy.png' height = '400'>
+    <img src='fluttering_clock/assets/images/snowy.png' height = '400'>
 
-  Rainy
+  * Rainy
 
-  <img src='fluttering_clock/assets/images/rainy.png' height = '400'>
+    <img src='fluttering_clock/assets/images/rainy.png' height = '400'>
 
-* Dark Mode
+* **Dark Mode**
 
-  <img src='fluttering_clock/assets/images/dark.jpg' height = '400'>
+    <img src='fluttering_clock/assets/images/dark.jpg' height = '400'>
 
 
 ## Platforms
